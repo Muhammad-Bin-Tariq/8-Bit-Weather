@@ -1,0 +1,1121 @@
+/* Importing Font */
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+:root {
+  /* Pink Retro pallete */
+  --text-color: white;
+  --light-pink: lightpink;
+  --retro-pink: #d6589f;
+  --dark-pink: #d20062;
+}
+
+a {
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "VT323";
+  scroll-behavior: smooth;
+}
+
+body {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12 columns grid */
+  height: 100vh;
+  background-color: var(--light-pink);
+  margin: 2% 4%;
+  /* margin: 10px 26px; */
+}
+
+/* Sidebar covers 3 out of 12 columns (25% of width) */
+#sidebar {
+  position: relative;
+  /* margin: 3%; */
+  /* margin-left: 3%;
+  margin-top: 3%;
+  margin-bottom: 3%; */
+
+  grid-column: span 3; /* Spans 3 columns */
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 100px; /* Adjusted for internal layout */
+  grid-template-columns: repeat(12, 1fr); /* 12-column layout inside */
+
+  /* Background settings */
+  background-image: url(/assets/images/catScenery.png);
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
+  border-radius: 6px 0px 0px 6px;
+  z-index: 1;
+}
+
+/* Overlay that darkens the background */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+  border-radius: 6px 0px 0px 6px;
+  z-index: 2; /*Overlay sits on top of the sidebar*/
+}
+
+#logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 3;
+  margin-top: 6px;
+  grid-column: 4/10;
+}
+
+#logo img {
+  width: 100%;
+  filter: drop-shadow(0 0 0.75em var(--dark-pink));
+  cursor: pointer;
+}
+
+#dashboard {
+  grid-column: 3 / 11;
+  grid-row: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+#tables {
+  grid-column: 3 / 11;
+  grid-row: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.btn-pink {
+  width: 200px;
+  max-width: 200px;
+  padding: 16px 40px;
+  color: var(--text-color);
+  background-color: var(--retro-pink);
+  border: 2px solid black;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px black;
+  transition: box-shadow 0.2s, transform 0.2s;
+  z-index: 3;
+}
+
+.btn-pink:hover {
+  background-color: var(--dark-pink); /* Lighter yellow for hover */
+  transform: translate(-4px, -4px); /* Gives a lifted effect */
+  box-shadow: 8px 8px 0px black;
+}
+
+.btn-selected {
+  background-color: var(--dark-pink);
+}
+
+#copyrights {
+  z-index: 4;
+  grid-row: 4;
+  grid-column: 3 / 11;
+  text-align: center;
+  color: var(--text-color);
+  color: white;
+  font-size: large;
+}
+
+/* Main Section of the page */
+
+/* Main Section */
+#weatherDisplay {
+  position: relative;
+  /* margin: 3%; */
+  /* margin-right: 3%;
+  margin-top: 3%;
+  margin-bottom: 3%; */
+
+  grid-column: span 9; /* Occupy remaining 9 columns after sidebar */
+
+  /* Background settings */
+  background-image: url(/assets/images/campfireOk.gif);
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+
+  border-right: 2px solid black;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  border-radius: 0px 6px 6px 0px;
+  z-index: 3;
+  transition: background-image 0.5s ease-in-out; /* Smooth transition when background changes */
+
+  display: grid;
+  grid-template-rows: 100px 1fr 1fr; /* Adjusted for internal layout */
+  grid-template-columns: repeat(12, 1fr); /* 12-column layout inside */
+}
+
+#time {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+#time button {
+  font-size: 1em;
+  cursor: default;
+  padding: 6px 12px;
+  box-shadow: 3px 3px 0 black;
+  transition: all 0.2s ease-in-out; /* Smooth hover transition */
+}
+
+#time button:hover {
+  background-color: var(--dark-pink); /* Dark pink on hover */
+  transform: translate(-4px, -4px); /*Lift*/
+  box-shadow: 4px 4px 0 black;
+}
+
+/* Search Bar inside weatherDisplay */
+#search-bar {
+  grid-row: 1;
+  grid-column: 3 / 11;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px 0;
+  color: white;
+  z-index: 2;
+
+  /* border: 2px   solid limegreen; */
+}
+
+/* Error Message */
+#error {
+  grid-row: 1;
+  grid-column: 3 / 11;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin: 10px 70px;
+  color: white;
+  z-index: 2;
+  color: var(--dark-pink);
+}
+
+#user-profile {
+  grid-row: 1;
+  grid-column: 11 / 13;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 16px;
+  z-index: 2;
+  width: 69px;
+  height: 69px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--retro-pink);
+}
+
+#user-profile img {
+  transition: transform 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+#user-profile:hover img {
+  transform: rotate(360deg);
+}
+
+/* Weather Data Here */
+#weather-data {
+  grid-row: 2;
+  grid-column: 4 / 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 20px 0; */
+  color: white;
+  z-index: 2;
+  /* border: 2px solid limegreen; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(6, 1fr);
+  color: var(--text-color);
+}
+
+#weather-details {
+  height: 100%;
+  width: 100%;
+  grid-column: 1 / 3;
+  grid-row: 1 / 7;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  border-radius: 12px;
+  box-shadow: 8px 8px 20px rgba(255, 105, 180, 0.6); /* Pinkish box-shadow */
+}
+
+#date {
+  /* margin: 10px 0px; */
+  margin-top: 6px;
+  text-align: center;
+  font-size: 1.7em;
+  letter-spacing: 2px;
+}
+
+#cityName {
+  /* margin: 10px 0px; */
+  text-align: center;
+  font-size: 1.8em;
+}
+
+.containerIconDesc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: rebeccapurple; */
+  /* grid-row: 3/5; */
+  flex-direction: column;
+  padding: 12px;
+}
+
+#icon {
+  /* text-align: center; */
+  /* grid-row: 3/5; */
+  /* height: 100%; */
+  /* border: 2px solid black; */
+}
+
+#icon img {
+  max-height: 50px;
+  /* mix-blend-mode: exclusion; */
+  /* max-width: 32px; */
+}
+
+#weatherDescription {
+  letter-spacing: 2px;
+  text-align: center;
+  font-size: 1em;
+}
+
+#temperature {
+  text-align: right;
+  font-size: 2.3em;
+  margin-right: 24px;
+}
+
+#humidity,
+#windSpeed {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  text-align: left;
+  font-size: 1em;
+}
+
+#humidity p,
+#windSpeed p {
+  margin-left: 6px;
+}
+
+#humidity img {
+  /* border: 1px solid black; */
+  max-height: 18px;
+  max-width: 18px;
+}
+
+#windSpeed img {
+  /* border: 1px solid black; */
+  max-height: 18px;
+  max-width: 18px;
+}
+
+#celsius {
+  grid-column: 3;
+  grid-row: 1/2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color);
+}
+
+.btn-ct {
+  /* width: 50px;
+  height: 50px; */
+  padding: 4px;
+  background-color: var(--retro-pink); /* Retro Pink as background color */
+  color: white;
+  border: 2px solid black;
+  /* border-radius: 50%; Circle shape */
+  /* font-size: 1.2em; */
+  cursor: pointer;
+  box-shadow: 3px 3px 0 black;
+  transition: all 0.2s ease-in-out; /* Smooth hover transition */
+}
+
+#celsius .btn-ct:hover {
+  background-color: var(--dark-pink); /* Dark pink on hover */
+  transform: translate(-4px, -4px); /*Lift*/
+  box-shadow: 4px 4px 0 black;
+}
+
+/* Add this if you have an image inside the user profile */
+#user-profile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image scales properly */
+}
+
+/* UIverser code for search city */
+/* From Uiverse.io by 0xnihilism */
+.input {
+  width: 100%;
+  max-width: 80%;
+  height: 67px;
+  padding: 12px;
+  /* font-size: 18px; */
+  color: #000;
+  background-color: #fff;
+  border: 4px solid #000;
+  border-radius: 0;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 8px 8px 0 #000;
+  cursor: pointer;
+}
+
+.input::placeholder {
+  color: var(--text-color);
+}
+
+.input:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 #000;
+}
+
+.input:hover::placeholder {
+  color: black;
+}
+
+.input:focus {
+  background-color: #000;
+  color: #fff;
+  border-color: #ffffff;
+}
+
+.input:focus::placeholder {
+  color: #fff;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.input:focus::after {
+  content: "|";
+  position: absolute;
+  right: 10px;
+  animation: blink 0.7s step-end infinite;
+}
+
+.input:valid {
+  animation: typing 2s steps(30, end);
+}
+.input-container {
+  position: relative;
+  width: 100%;
+  max-width: 270px;
+}
+
+.input {
+  width: 100%;
+  height: 30px;
+  padding: 12px;
+  font-size: 18px;
+  font-family: "VT323";
+  color: var(--text-color);
+  background-color: var(--retro-pink); /* Using retro pink */
+  border: 4px solid black;
+  border-radius: 0;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 8px 8px 0 black;
+}
+
+.input::placeholder {
+  color: var(--text-color);
+}
+
+.input:hover {
+  background-color: var(--dark-pink); /* Dark pink on hover */
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 black;
+}
+
+.input:focus {
+  background-color: var(--dark-pink); /* Dark pink when focused */
+  color: var(--text-color);
+  border-color: white;
+}
+
+.input:focus::placeholder {
+  color: var(--text-color);
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(5px) rotate(5deg);
+  }
+  75% {
+    transform: translateX(-5px) rotate(-5deg);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.input:focus {
+  animation: shake 0.5s ease-in-out;
+}
+
+.input:not(:placeholder-shown) {
+  animation: glitch 1s linear infinite;
+}
+
+.input-container::after {
+  content: "|";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000;
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.input:focus + .input-container::after {
+  color: #fff;
+}
+
+.input:not(:placeholder-shown) {
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0px 0px 0 #000;
+}
+
+/* From Uiverse.io by vikramsinghnegi */
+/* HTML: <div class="loading-animation"></div> */
+
+#empty-state {
+  margin: auto;
+  grid-column: 1/4;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  grid-row: 1/7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid red; */
+  font-size: 1em;
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+#empty-state img {
+  width: 60%;
+  border-radius: 50%;
+  /* overflow: hidden; */
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1rem;
+  font-weight: bolder;
+  text-shadow: 6px 6px 6px rgba(0, 0, 0, 0.7); /* Text shadow for better readability */
+  text-align: center;
+  /* padding: 0px 1000px; */
+}
+
+/* #empty-btn {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-color);
+  background-color: var(--retro-pink);
+  border: 2px solid black;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px black;
+  transition: box-shadow 0.2s, transform 0.2s;
+  z-index: 3;
+  padding: 2px 6px;
+}
+
+#empty-btn:hover {
+  background-color: var(--dark-pink);
+  transform: translate(-4px, -4px);
+  box-shadow: 8px 8px 0px black;
+} */
+
+#loading-animation {
+  margin: auto;
+  grid-column: 1/4;
+  grid-row: 1/7;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  width: fit-content;
+  font-size: 17px;
+  font-family: "VT323";
+  line-height: 1.4;
+  font-weight: bold;
+  padding: 30px 2px 50px;
+  background: linear-gradient(#000 0 0) 0 0/100% 100% content-box padding-box
+    no-repeat;
+  position: relative;
+  overflow: hidden;
+  animation: l10-0 2s infinite cubic-bezier(1, 175, 0.5, 175);
+}
+#loading-animation::before {
+  content: "Loading";
+  display: inline-block;
+  animation: l10-2 2s infinite;
+}
+#loading-animation::after {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 28px;
+  top: 110%;
+  left: calc(50% - 16px);
+  background: linear-gradient(
+        90deg,
+        #0000 12px,
+        #f92033 0 22px,
+        #0000 0 26px,
+        #fdc98d 0 32px,
+        #0000
+      )
+      bottom 26px left 50%,
+    linear-gradient(90deg, #0000 10px, #f92033 0 28px, #fdc98d 0 32px, #0000 0)
+      bottom 24px left 50%,
+    linear-gradient(
+        90deg,
+        #0000 10px,
+        #643700 0 16px,
+        #fdc98d 0 20px,
+        #000 0 22px,
+        #fdc98d 0 24px,
+        #000 0 26px,
+        #f92033 0 32px,
+        #0000 0
+      )
+      bottom 22px left 50%,
+    linear-gradient(
+        90deg,
+        #0000 8px,
+        #643700 0 10px,
+        #fdc98d 0 12px,
+        #643700 0 14px,
+        #fdc98d 0 20px,
+        #000 0 22px,
+        #fdc98d 0 28px,
+        #f92033 0 32px,
+        #0000 0
+      )
+      bottom 20px left 50%,
+    linear-gradient(
+        90deg,
+        #0000 8px,
+        #643700 0 10px,
+        #fdc98d 0 12px,
+        #643700 0 16px,
+        #fdc98d 0 22px,
+        #000 0 24px,
+        #fdc98d 0 30px,
+        #f92033 0 32px,
+        #0000 0
+      )
+      bottom 18px left 50%,
+    linear-gradient(
+        90deg,
+        #0000 8px,
+        #643700 0 12px,
+        #fdc98d 0 20px,
+        #000 0 28px,
+        #f92033 0 30px,
+        #0000 0
+      )
+      bottom 16px left 50%,
+    linear-gradient(90deg, #0000 12px, #fdc98d 0 26px, #f92033 0 30px, #0000 0)
+      bottom 14px left 50%,
+    linear-gradient(
+        90deg,
+        #fdc98d 6px,
+        #f92033 0 14px,
+        #222a87 0 16px,
+        #f92033 0 22px,
+        #222a87 0 24px,
+        #f92033 0 28px,
+        #0000 0 32px,
+        #643700 0
+      )
+      bottom 12px left 50%,
+    linear-gradient(
+        90deg,
+        #fdc98d 6px,
+        #f92033 0 16px,
+        #222a87 0 18px,
+        #f92033 0 24px,
+        #f92033 0 26px,
+        #0000 0 30px,
+        #643700 0
+      )
+      bottom 10px left 50%,
+    linear-gradient(
+        90deg,
+        #0000 10px,
+        #f92033 0 16px,
+        #222a87 0 24px,
+        #feee49 0 26px,
+        #222a87 0 30px,
+        #643700 0
+      )
+      bottom 8px left 50%,
+    linear-gradient(
+        90deg,
+        #0000 12px,
+        #222a87 0 18px,
+        #feee49 0 20px,
+        #222a87 0 30px,
+        #643700 0
+      )
+      bottom 6px left 50%,
+    linear-gradient(90deg, #0000 8px, #643700 0 12px, #222a87 0 30px, #643700 0)
+      bottom 4px left 50%,
+    linear-gradient(90deg, #0000 6px, #643700 0 14px, #222a87 0 26px, #0000 0)
+      bottom 2px left 50%,
+    linear-gradient(90deg, #0000 6px, #643700 0 10px, #0000 0) bottom 0px left
+      50%;
+  background-size: 34px 2px;
+  background-repeat: no-repeat;
+  animation: inherit;
+  animation-name: l10-1;
+}
+@keyframes l10-0 {
+  0%,
+  30% {
+    background-position: 0 0px;
+  }
+  50%,
+  100% {
+    background-position: 0 -0.1px;
+  }
+}
+@keyframes l10-1 {
+  50%,
+  100% {
+    top: 109.5%;
+  }
+}
+@keyframes l10-2 {
+  0%,
+  30% {
+    transform: translateY(0);
+  }
+  80%,
+  100% {
+    transform: translateY(-260%);
+  }
+}
+
+#vertical {
+  grid-row: 3;
+  grid-column: 1 / span 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px 20px;
+  z-index: 2;
+}
+
+#doughnut {
+  grid-row: 3;
+  grid-column: 5 / span 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px 20px;
+  color: black;
+  z-index: 2;
+}
+
+#line {
+  grid-row: 3;
+  grid-column: 9 / span 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px 20px;
+  color: black;
+  z-index: 2;
+}
+
+.chart {
+  grid-row: 3; /* Place in the third row */
+  grid-column: span 4; /* Each chart takes up 4 columns */
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid black;
+  border-radius: 10px;
+  transition: all 0.3s ease; /* Smooth transition for minimization */
+  display: none; /* Initially hidden */
+}
+
+.chart.active {
+  display: block; /* Show only the clicked chart */
+}
+
+.chart.minimized {
+  grid-column: span 1; /* Minimized view */
+  height: 50px;
+  overflow: hidden;
+}
+
+.charts {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  border-radius: 12px;
+  box-shadow: 8px 8px 20px rgba(255, 105, 180, 0.6); /* Pinkish box-shadow */
+}
+
+canvas {
+  width: max-content !important;
+  height: max-content !important;
+}
+
+#weatherConditionChart {
+  height: 200px !important;
+}
+
+#gemini-table {
+  color: white;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  grid-row: 2;
+  grid-column: 4 / 10;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  border-radius: 12px;
+  box-shadow: 8px 8px 20px rgba(255, 105, 180, 0.6); /* Pinkish box-shadow */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #fff; /* White border for table */
+}
+
+th {
+  background-color: rgba(255, 105, 180, 0.6); /* Light pink background */
+}
+
+tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1); /* Light gray for even rows */
+}
+
+#filters {
+  z-index: 2;
+  /* background-color: rebeccapurple; */
+  grid-column: 3;
+  margin-right: 16px;
+}
+
+.modal {
+  z-index: 3;
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  margin: auto;
+  color: white;
+  background-color: var(--retro-pink);
+  padding: 28px;
+  /* border-radius: 5px; */
+  width: 80%;
+  max-width: 500px;
+  max-height: 300px;
+  box-shadow: 6px 6px 0 black;
+  transition: all 0.2s ease-in-out; /* Smooth hover transition */
+}
+
+.modal-content p,
+input,
+button {
+  margin-top: 12px;
+}
+
+.modal-content:hover {
+  transform: translate(-4px, -4px); /*Lift*/
+  box-shadow: 7px 7px 0 black;
+  background-color: var(--dark-pink);
+}
+
+.close-button {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Styling for close button, prompt, submit button, etc. (add as needed) */
+
+#gemini-prompt {
+  grid-column: 10;
+  margin-left: 16px;
+  z-index: 2;
+}
+
+#gemini-prompt button {
+  font-size: 1em;
+  cursor: default;
+  padding: 6px 12px;
+  box-shadow: 3px 3px 0 black;
+  transition: all 0.2s ease-in-out; /* Smooth hover transition */
+}
+
+#gemini-prompt button:hover {
+  background-color: var(--dark-pink); /* Dark pink on hover */
+  transform: translate(-4px, -4px); /*Lift*/
+  box-shadow: 4px 4px 0 black;
+}
+
+#gemini-data {
+  background-color: var(--retro-pink);
+  max-width: 100%;
+  max-height: 140px;
+  padding: 14px;
+  overflow-y: auto;
+  text-align: left;
+  border: 2px solid black;
+}
+
+#gemini-data p {
+  margin: 0;
+  height: auto;
+  max-height: 100%;
+  overflow: hidden; /* Truncates text if it exceeds container */
+  text-overflow: ellipsis; /* Adds ellipsis for overflowed text */
+  white-space: nowrap; /* Keeps text */
+}
+
+.btn-ft {
+  width: 80px;
+  max-width: 100px;
+  padding: 6px;
+  background-color: var(--retro-pink); /* Retro Pink as background color */
+  color: white;
+  border: 2px solid black;
+  /* border-radius: 50%; Circle shape */
+  /* font-size: 1.2em; */
+  cursor: pointer;
+  box-shadow: 3px 3px 0 black;
+  transition: all 0.2s ease-in-out; /* Smooth hover transition */
+}
+
+.btn-ft:hover {
+  background-color: var(--dark-pink); /* Dark pink on hover */
+  transform: translate(-4px, -4px); /*Lift*/
+  box-shadow: 4px 4px 0 black;
+}
+
+/* Media Queries */
+
+@media (max-width: 900px) {
+  body {
+    margin: 1% 2%; /* Reduce margins for smaller screens */
+    font-size: 14px; /* Optional: Smaller base font size for better readability */
+  }
+
+  #sidebar {
+    grid-column: span 12; /* Sidebar takes full width */
+    grid-template-rows: auto auto auto; /* Adjust row heights */
+    padding: 20px; /* Reduce padding for a more compact sidebar */
+    margin-bottom: 20px;
+  }
+
+  #weatherDisplay {
+    grid-column: span 12; /* Main section takes full width */
+    grid-template-rows: 80px 1fr 1fr; /* Adjust for better layout */
+  }
+
+  #search-bar {
+    grid-column: 2 / 12; /* Center search bar */
+    margin: 10px 0; /* Adjust margin */
+  }
+
+  .input-container {
+    max-width: 90%; /* Make input field wider */
+  }
+
+  .btn-pink {
+    width: 150px; /* Reduce button size */
+  }
+
+  #user-profile {
+    margin: 10px; /* Reduce margin */
+  }
+
+  /* Smaller font for charts */
+  .chart {
+    font-size: 12px; /* Adjust this value as needed */
+  }
+
+  .chart-label {
+    font-size: 10px; /* Smaller font for labels */
+  }
+}
+
+/* Media Queries for screens up to 704px */
+@media (max-width: 704px) {
+  body {
+    margin: 0; /* Remove margins for compact view */
+    font-size: 14px; /* Smaller base font size */
+    display: flex; /* Use flex for vertical stacking */
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  #sidebar {
+    grid-column: span 12; /* Sidebar takes full width */
+    padding: 10px; /* Reduce padding */
+  }
+
+  #weatherDisplay {
+    grid-template-rows: auto auto; /* Stack layout */
+    grid-column: span 12; /* Full width for weather display */
+    margin-top: 10px; /* Add margin to separate from sidebar */
+  }
+
+  #search-bar {
+    grid-column: 1 / -1; /* Full width for search bar */
+    margin: 5px 0; /* Reduced margin */
+  }
+
+  .input-container {
+    max-width: 100%; /* Full width for input */
+  }
+
+  .btn-pink {
+    width: 100px; /* Smaller button size */
+  }
+
+  #user-profile {
+    margin: 5px; /* Reduced margin */
+  }
+
+  /* Smaller font sizes for all elements */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    font-size: 12px; /* Adjust heading and paragraph font size */
+  }
+}
+
+/* Mobile device queries (480px and below) */
+@media (max-width: 480px) {
+  body {
+    margin: 0; /* Remove margins for mobile */
+    font-size: 12px; /* Even smaller base font size for mobile */
+    display: flex; /* Ensure vertical stacking */
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  #sidebar {
+    padding: 5px; /* Further reduce padding for mobile */
+    margin-bottom: 10px; /* Add margin to separate from other sections */
+  }
+
+  #weatherDisplay {
+    grid-template-rows: auto; /* Single stacked layout */
+    grid-column: span 12; /* Full width for weather display */
+  }
+
+  #search-bar {
+    grid-column: 1 / -1; /* Full width for search bar */
+  }
+
+  #user-profile {
+    grid-column: 1 / -1; /* Full width for user profile */
+  }
+
+  .input {
+    width: 90%; /* Full width input */
+  }
+}
